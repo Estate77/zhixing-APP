@@ -2,7 +2,11 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>智行APP高保真原型</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#f3f6fa">
+    <title>智行APP</title>
     <style>
         :root {
             --primary-color: #0052d9;
@@ -23,18 +27,17 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        body { background: #1e1e24; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        html, body { width: 100%; height: 100%; overflow: hidden; }
+        body { background: var(--bg-color); display: flex; justify-content: center; align-items: stretch; }
 
-        /* 手机外壳容器 */
+        /* 手机外壳容器 - 桌面端保留，移动端全屏 */
         .phone-wrapper {
-            width: 390px;
-            height: 844px;
-            background: #000;
-            border-radius: 45px;
-            padding: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 430px;
+            height: 100%;
+            background: var(--bg-color);
             position: relative;
-            border: 4px solid #333;
+            overflow: hidden;
         }
 
         /* 屏幕内部视口 */
@@ -42,17 +45,31 @@
             width: 100%;
             height: 100%;
             background: var(--bg-color);
-            border-radius: 35px;
             overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
         }
 
+        /* 桌面端居中展示手机框架 */
+        @media (min-width: 431px) {
+            body { background: #1e1e24; padding: 20px; justify-content: center; align-items: center; }
+            .phone-wrapper {
+                width: 390px;
+                height: 844px;
+                background: #000;
+                border-radius: 45px;
+                padding: 12px;
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+                border: 4px solid #333;
+            }
+            .phone-screen { border-radius: 35px; }
+        }
+
         /* 状态栏 */
         .status-bar {
             height: 40px;
-            padding: 14px 24px 0 24px;
+            padding: max(14px, env(safe-area-inset-top)) 24px 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -87,7 +104,7 @@
 
 
         /* 下钻页面 */
-        .drill-page { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 100; border-radius: 35px; overflow-y: auto; padding-bottom: 20px; }
+        .drill-page { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-color); z-index: 100; overflow-y: auto; padding-bottom: 20px; }
         .drill-page.active { display: flex; flex-direction: column; }
         .drill-header { height: 50px; padding: 40px 16px 0 16px; display: flex; align-items: center; gap: 12px; background: #fff; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 10; }
         .drill-back { font-size: 20px; cursor: pointer; color: var(--text-main); background: none; border: none; padding: 4px 8px; }
@@ -479,7 +496,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding-bottom: 12px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
             z-index: 90;
         }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-muted); font-size: 11px; cursor: pointer; width: 20%; }
