@@ -45,7 +45,7 @@
             width: 100%;
             height: 100%;
             background: var(--bg-color);
-            overflow-y: auto;
+            overflow: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -53,10 +53,11 @@
 
         /* 桌面端居中展示手机框架 */
         @media (min-width: 768px) {
-            body { background: #1e1e24; padding: 20px; justify-content: center; align-items: center; overflow: hidden; }
+            body { background: #1e1e24; padding: 20px; justify-content: center; align-items: flex-start; overflow-y: auto; }
             .phone-wrapper {
                 width: 390px;
-                height: 844px;
+                height: auto;
+                min-height: 844px;
                 background: #000;
                 border-radius: 45px;
                 padding: 12px;
@@ -64,7 +65,14 @@
                 border: 4px solid #333;
                 flex-shrink: 0;
             }
-            .phone-screen { border-radius: 35px; }
+            .phone-screen {
+                border-radius: 35px;
+                height: auto;
+                min-height: 820px;
+                overflow: visible;
+            }
+            .bottom-nav { position: relative; }
+            .drill-page { border-radius: 35px; }
         }
 
         /* 状态栏 */
